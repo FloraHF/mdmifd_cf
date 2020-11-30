@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- uris of the crazyflies
+  cf0: "radio://0/80/1M/E7E7E7E700"
+  cf1:
+  cf2: "radio://0/84/1M/E7E7E7E702"
+  cf3: "radio://0/84/1M/E7E7E7E703"
+  cf4: "radio://0/88/1M/E7E7E7E704"
+  cf5: "radio://0/88/1M/E7E7E7E705"
+  -->
+
+  <!-- arguments -->
+  <arg name="server" default="192.168.2.230" />
+  <arg name="port" default="3883" />
+  <arg name="res_id" default="res_0" />
+
+  <!-- defenders -->
+  <arg name="uri_D0" default="radio://0/84/1M/E7E7E7E703" />
+  <arg name="frame_D0" default="cf3" />
+  <arg name="z_D0" default=".4"/>
+  <arg name="xd_0" value="0."/>
+  <arg name="yd_0" value="0.0"/>
+
+<!--   <arg name="uri_D1" default="radio://0/88/1M/E7E7E7E704" />
+  <arg name="frame_D1" default="cf4" />
+  <arg name="z_D1" default=".4"/>
+  <arg name="xd_1" value="1."/>
+  <arg name="yd_1" value="2.9"/> -->
+
+  <!-- intruders -->
+  <arg name="uri_I0" default="radio://0/80/1M/E7E7E7E700" />
+  <arg name="frame_I0" default="cf0" />
+  <arg name="z_I0" default=".45"/>
+  <arg name="xi_0" value="0."/>
+  <arg name="yi_0" value=".5"/>  
+
+<!--   <arg name="uri_I1" default="radio://0/80/1M/E7E7E7E700" />
+  <arg name="frame_I1" default="cf1" />
+  <arg name="z_I1" default=".45"/>
+  <arg name="xi_1" value="1."/>
+  <arg name="yi_1" value="2.9"/>
+
+  <arg name="uri_I2" default="radio://0/80/1M/E7E7E7E700" />
+  <arg name="frame_I2" default="cf2" />
+  <arg name="z_I2" default=".45"/>  
+  <arg name="xi_2" value="1."/>
+  <arg name="yi_2" value="2.9"/> -->
+
+  <!-- game settings-->
+  <arg name="r" value="0.3"/>
+  <arg name="ni" value="1"/>
+  <arg name="nd" value="1"/>
+  <arg name="vi" value=".2"/>
+  <arg name="vd" value=".25"/>
+  <arg name="Rt" value="2."/>
+  <arg name="Ro" value="2.5"/>
+
+  <!-- <arg name="role_dict" value="I0_$(arg frame_I0),I1_$(arg frame_I1),D0_$(arg frame_D0),D1_$(arg frame_D1),D2_$(arg frame_D2)"/> -->
+  <arg name="role_dict" value="I0_$(arg frame_I0),D0_$(arg frame_D0)"/>
+
+
+  <!-- start crazyflie_client -->
+  <include file="$(find crazyflie_driver)/launch/crazyflie_server.launch">
+  </include>
+
+  <!-- run vrpn client -->
+  <include file="$(find optitrack_broadcast)/launch/optitrack_broadcast_p300.launch">
+    <arg name="server" value="$(arg server)" />
+    <!-- <arg name="frames" value="$(arg frame_D0) $(arg frame_D1) $(arg frame_D2) $(arg frame_I0) $(arg frame_I1)" /> -->
+    <arg name="frames" value="$(arg frame_D0) $(arg frame_I0)"/>
+  </include>
+
+
+  <!-- ############# launch individual players: intruder D0 ###########-->  
+  <include file="$(find crazyflie_mdmifd)/launch/individual_player.launch"> 
+    <!-- player settings, change here-->
+    <arg name="node_file" value="Defender.py"/>
+    <arg name="role" value="D"/>
+    <arg name="id" value="0"/>
+    <arg name="frame" value="$(arg frame_D0)"/>
+    <arg name="uri" value="$(arg uri_D0)"/>
+    
+    <arg name="vmax" value="$(arg vd)" />
+    <arg name="Rt" value="$(arg Rt)" />
+    <arg name="Ro" value="$(arg Ro)" />
+    <arg name="x" value="$(arg xd_0)"  />
+    <arg name="y" value="$(arg yd_0)"  />
+
+    <!-- environment settings, same for all players-->
+    <arg name="r" value="$(arg r)"/>
+    <arg name="ni" value="$(arg ni)"  />
+    <arg name="nd" value="$(arg nd)"  />  
+    <arg name="role_dict" value="$(arg role_dict)"  />  
+    <!-- data saving settings, same for all players-->
+    <arg name="res_id" value="$(arg res_id)"/>
+  </include>
+
+  <!-- ############# launch individual players: intruder I0 ###########-->  
+  <include file="$(find crazyflie_mdmifd)/launch/individual_player.launch"> 
+    <!-- player settings, change here-->
+    <arg name="node_file" value="Intruder.py"/>
+    <arg name="role" value="I"/>
+    <arg name="id" value="0"/>
+    <arg name="frame" value="$(arg frame_I0)"/>
+    <arg name="uri" value="$(arg uri_I0)"/>
+    
+    <arg name="vmax" value="$(arg vi)" />
+    <arg name="Rt" value="$(arg Rt)" />
+    <arg name="Ro" value="$(arg Ro)" />
+    <arg name="x" value="$(arg xi_0)"  />
+    <arg name="y" value="$(arg yi_0)"  />
+
+    <!-- environment settings, same for all players-->
+    <arg name="r" value="$(arg r)"/>
+    <arg name="ni" value="$(arg ni)"  />
+    <arg name="nd" value="$(arg nd)"  />  
+    <arg name="role_dict" value="$(arg role_dict)"  />  
+    <!-- data saving settings, same for all players-->
+    <arg name="res_id" value="$(arg res_id)"/>
+  </include>
+
+  <!-- environment -->
+  <node name="environment" pkg="crazyflie_mdmifd" type="env.py" output="screen">
+    <param name="ni" value="$(arg ni)"  />
+    <param name="nd" value="$(arg nd)"  />  
+  </node>   
+
+</launch>

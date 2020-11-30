@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- player settings -->
+  <arg name="node_file" default="Intruder.py"/>
+  <arg name="role" default="I"/>
+  <arg name="id" default="0"/>
+  <arg name="frame" default="cf3" />
+  <arg name="uri" default="radio://0/84/1M/E7E7E7E703" />
+  <arg name="res_id" default="res1" />
+  <arg name="role_dict" default="I0_cf0,D0_cf3"/>
+  
+  <arg name="r" default="0.5"/>
+  <arg name="ni" default="3"  />
+  <arg name="nd" default="2"  />  
+  <arg name="vmax" default="0.5" />
+  <arg name="Rt" default="5." />
+  <arg name="Ro" default="5." />
+  <arg name="x" default="0.0"  />
+  <arg name="y" default="0.0"  />
+
+  <!-- launch files and nodes -->
+  <group ns='$(arg frame)'>
+    <!-- player node -->
+    <node name="player" pkg="crazyflie_mdmifd" type="$(arg node_file)" output="screen">
+      <param name="res_id" value="res$(arg res_id)"  />
+      <param name="id" value="$(arg id)"  />
+      <param name="cf_id" value="$(arg frame)"  />
+      <param name="role_dict" value="$(arg role_dict)"  />
+      <param name="ni" value="$(arg ni)"  />
+      <param name="nd" value="$(arg nd)"  />       
+      <param name="r" value="$(arg r)"  />
+      <param name="vmax" value="$(arg vmax)" />
+      <param name="x" value="$(arg x)"  />
+      <param name="y" value="$(arg y)"  />
+      <param name="Rt" value="$(arg Rt)" />
+      <param name="Ro" value="$(arg Ro)" />
+    </node>
+
+    <!-- add crazyflie -->
+    <include file="$(find crazyflie_driver)/launch/crazyflie_add.launch">
+      <arg name="uri" value="$(arg uri)" />
+      <arg name="tf_prefix" value="$(arg frame)" />
+      <arg name="enable_logging" value="True" />
+    </include>
+
+    <!-- add controller -->
+    <include file="$(find crazyflie_controller)/launch/crazyflie2.launch">
+      <arg name="frame" value="$(arg frame)" />
+    </include>
+
+  </group>
+
+</launch>
