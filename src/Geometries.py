@@ -68,7 +68,7 @@ class LineTarget(object):
 		return sol.x
 
 class CircleTarget(object):
-	def __init__(self, R, x=0.0, y=-1.):
+	def __init__(self, R=3.9, x=-2.2, y=-4.):
 		super(CircleTarget, self).__init__()
 		# self.state.p_pos = np.array([x, y])
 		self.x0 = x

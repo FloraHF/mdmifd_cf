@@ -83,14 +83,18 @@ if __name__ == '__main__':
 	vmax = rospy.get_param("~vmax", .3)
 	x = rospy.get_param("~x", 0)
 	y = rospy.get_param("~y", 0)
+	z = rospy.get_param("~z", 0)
+
+
 	r = rospy.get_param("~r", .1)
 	nd = rospy.get_param("~nd", 2)
 	ni = rospy.get_param("~ni", 1)
 	Ro = rospy.get_param("~Ro", 2.)
 	Rt = rospy.get_param("~Rt", 5.)
 		
-	intruder = IntruderNode(i, np.array([x, y]), vmax,
-							r=r, nd=nd, ni=ni,
+	intruder = IntruderNode(i, np.array([x, y]), vmax, z=z,
+							r=r, 
+							nd=nd, ni=ni,
 							Rteam=Rt, Roppo=Ro,
 							resid=resid,
 							cf=cf,

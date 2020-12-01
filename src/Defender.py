@@ -51,7 +51,7 @@ class DefenderNode(PlayerNode):
 	def capture_handler(self):
 		clear_neib = True
 		temp_state_oppo_neigh = {k:v for k, v in self.state_oppo_neigh.items()}
-		print(temp_state_oppo_neigh)
+		# print(temp_state_oppo_neigh)
 
 		for i in temp_state_oppo_neigh:
 			if self.is_capture(i):
@@ -230,6 +230,7 @@ if __name__ == '__main__':
 	vmax = rospy.get_param("~vmax", .5)
 	x = rospy.get_param("~x", 0)
 	y = rospy.get_param("~y", 0)
+	z = rospy.get_param("~z", .5)
 
 	r = rospy.get_param("~r", .1)
 	nd = rospy.get_param("~nd", 2)
@@ -240,8 +241,9 @@ if __name__ == '__main__':
 	iselect_mode = rospy.get_param("~iselect_mode", 'value')
 	# print('D'+i, x, y)
 
-	defender = DefenderNode(i, np.array([x, y]), vmax,
-							r=r, nd=nd, ni=ni,
+	defender = DefenderNode(i, np.array([x, y]), vmax, z=z,
+							r=r, 
+							nd=nd, ni=ni,
 							Rteam=Rt, Roppo=Ro,
 							resid=resid,
 							iselect_mode=iselect_mode,

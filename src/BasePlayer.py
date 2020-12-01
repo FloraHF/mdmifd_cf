@@ -30,7 +30,8 @@ from utils import mcap_msg_to_player_state
 
 class PlayerNode(object):
 
-	def __init__(self, i, x, vmax, r=1., Rtarg=.6, 
+	def __init__(self, i, x, vmax, z=.5,
+					   r=1., Rtarg=3.9, 
 					   ni=1, nd=2, Rteam=5., Roppo=5., 
 					   resid='res0', cf='cf0', 
 					   cf_dict=''):
@@ -50,7 +51,7 @@ class PlayerNode(object):
 		# print(self.cf_dict)
 
 		# player settings
-		self.altitude = .5
+		self.altitude = z
 		self.r = r
 		self.id = i
 		self.Rt = Rteam
