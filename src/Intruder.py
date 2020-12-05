@@ -30,10 +30,11 @@ class IntruderNode(PlayerNode):
 			if self.is_capture(D):
 				# print(str(self))
 				self.status[1] = 'captured'
-				self.status[0] = 'land'
+				self.status[0] = 'standby'
 				rospy.loginfo(str(self)+' reports: captured')
 				with open(self.datadir+'/Dcap.csv', 'a') as f:
 					f.write('%.4f,%s\n'%(self.state.t, D))
+				self.land_client()
 				break
 
 	def entering_handler(self):
@@ -78,7 +79,7 @@ if __name__ == '__main__':
 	cf = rospy.get_param("~cf_id", 'cf0')
 	# print('!!!!!!!!!!!! intruder', cf)
 	role_dict = rospy.get_param("~role_dict", '')
-	resid = rospy.get_param("~res_id", 'res0')
+	resid = rospy.get_param("~res_id", 'data_00')
 
 	vmax = rospy.get_param("~vmax", .3)
 	x = rospy.get_param("~x", 0)

@@ -6,7 +6,7 @@
   <arg name="id" default="0"/>
   <arg name="frame" default="cf3" />
   <arg name="uri" default="radio://0/84/1M/E7E7E7E703" />
-  <arg name="res_id" default="res1" />
+  <arg name="res_id" default="data_00" />
   <arg name="role_dict" default="I0_cf0,D0_cf3"/>
   
   <arg name="r" default="0.5"/>
@@ -23,7 +23,7 @@
   <group ns='$(arg frame)'>
     <!-- player node -->
     <node name="player" pkg="crazyflie_mdmifd" type="$(arg node_file)" output="screen">
-      <param name="res_id" value="res$(arg res_id)"  />
+      <param name="res_id" value="$(arg res_id)"  />
       <param name="id" value="$(arg id)"  />
       <param name="cf_id" value="$(arg frame)"  />
       <param name="role_dict" value="$(arg role_dict)"  />

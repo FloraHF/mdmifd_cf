@@ -9,8 +9,10 @@ import shutil
 
 import numpy as np
 import rospy
+from datetime import datetime
 
 # messages
+# from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped, Twist
 from optitrack_broadcast.msg import Mocap
 
@@ -40,11 +42,13 @@ class PlayerNode(object):
 		self.ni = ni
 		self.nd = nd
 		self.t = 0.
+		date, time = str(datetime.now()).split(' ')
+		self.t0 = '-'.join([date] + time.split('.')[0].split(':'))
 
 		# crazyflie frame
 		self.cf_id = cf
 		# print(cf_dict)
-		temp, self.cf_dict = cf_dict.split(','), dict()
+		temp, self.cf_dict = cf_dict.split('!'), dict()
 		for rcf in temp:
 			r_cf = rcf.split('_')
 			self.cf_dict.update({r_cf[0]:r_cf[1]}) # role: cf
@@ -80,6 +84,7 @@ class PlayerNode(object):
 		# publisher
 		self.cmdX_pubs = rospy.Publisher('/'+self.cf_id+'/goal', PoseStamped, queue_size=1)
 		self.cmdV_pubs = rospy.Publisher('/'+self.cf_id+'/cmdV', Twist, queue_size=1)
+		# self.status_pubs = rospy.Publisher('/'+self.cf_id+'/status', String, queue_size=1)
 
 		# service
 		rospy.Service('/crazyflie2_'+str(self)+'/set_status', DroneStatus, self.status_srv_callback)
@@ -91,10 +96,11 @@ class PlayerNode(object):
 
 
 		# create files for data saving, clear existing files if exist
-		self.datadir = '/home/flora/mdmi_data/'+resid+'/'+str(self)
+		self.datadir = '/home/flora/crazyflie_ws/src/crazyflie_mdmifd/data/'+resid+'/'+str(self)
 		if os.path.exists(self.datadir): 
 			shutil.rmtree(self.datadir)
 		os.makedirs(self.datadir)
+		# print('!!!!!!!!!!!!!!', self.datadir)
 
 		# record parameters used by the player
 		with open(self.datadir + '/param.csv', 'w') as f:
@@ -121,6 +127,7 @@ class PlayerNode(object):
 			f.write('z,%.2f\n'%self.altitude)
 			f.write('Rteam,%.2f\n'%self.Rt)
 			f.write('Roppo,%.2f\n'%self.Ro)
+			f.write('cf_dict,%s\n'%cf_dict)
 
 	# ============ functions for the game ============
 	def get_team(self):
@@ -154,7 +161,7 @@ class PlayerNode(object):
 		return cmdX_msg
 
 	def standby(self):
-		cmdX_msg = self.get_cmdX_msg(self.state.x, self.state.z)
+		cmdX_msg = self.get_cmdX_msg(self.state.x, 0.2)
 		self.cmdX_pubs.publish(cmdX_msg)
 
 	def win(self):
@@ -219,7 +226,7 @@ class PlayerNode(object):
 	def get_statesub_callback(self, p, pset, R):
 		def sub_callback(msg):
 			state = mcap_msg_to_player_state(msg)
-			if dist(state.x, self.state.x) <= R and state.z > 0.1:
+			if dist(state.x, self.state.x) <= R and state.z > 0.3:
 				pset.update({p: state})
 			else:
 				pset.pop(p, '')

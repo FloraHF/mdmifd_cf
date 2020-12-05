@@ -225,7 +225,7 @@ if __name__ == '__main__':
 	cf = rospy.get_param("~cf_id", 'cf0')
 	# print('!!!!!!!!!!!! defender', cf)
 	role_dict = rospy.get_param("~role_dict", '')
-	resid = rospy.get_param("~res_id", 'res0')
+	resid = rospy.get_param("~res_id", 'data_00')
 
 	vmax = rospy.get_param("~vmax", .5)
 	x = rospy.get_param("~x", 0)

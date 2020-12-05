@@ -12,7 +12,7 @@
   <!-- arguments -->
   <arg name="server" default="192.168.2.230" />
   <arg name="port" default="3883" />
-  <arg name="res_id" default="res_0" />
+  <arg name="res_id" default="data_01" />
 
   <!-- defenders -->
   <arg name="uri_D0" default="radio://0/84/1M/E7E7E7E703" />
@@ -52,10 +52,10 @@
   <arg name="nd" value="2"/>
   <arg name="vi" value=".15"/>
   <arg name="vd" value=".2"/>
-  <arg name="Rt" value="2.0"/>
-  <arg name="Ro" value="1.5"/>
+  <arg name="Rt" value="2.5"/>
+  <arg name="Ro" value="2."/>
 
-  <arg name="role_dict" value="D0_$(arg frame_D0),D1_$(arg frame_D1),I0_$(arg frame_I0),I1_$(arg frame_I1),I2_$(arg frame_I2)"/>
+  <arg name="role_dict" value="D0_$(arg frame_D0)!D1_$(arg frame_D1)!I0_$(arg frame_I0)!I1_$(arg frame_I1)!I2_$(arg frame_I2)"/>
   <!-- <arg name="role_dict" value="I0_$(arg frame_I0),D0_$(arg frame_D0)"/> -->
 
 
