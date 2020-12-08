@@ -47,12 +47,12 @@
   <arg name="yi_2" value="1."/>
 
   <!-- game settings-->
-  <arg name="r" value="0.3"/>
+  <arg name="r" value="0.25"/>
   <arg name="ni" value="3"/>
   <arg name="nd" value="2"/>
-  <arg name="vi" value=".15"/>
-  <arg name="vd" value=".2"/>
-  <arg name="Rt" value="2.5"/>
+  <arg name="vi" value=".22"/>
+  <arg name="vd" value=".25"/>
+  <arg name="Rt" value="3."/>
   <arg name="Ro" value="2."/>
 
   <arg name="role_dict" value="D0_$(arg frame_D0)!D1_$(arg frame_D1)!I0_$(arg frame_I0)!I1_$(arg frame_I1)!I2_$(arg frame_I2)"/>
