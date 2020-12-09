@@ -4,20 +4,20 @@
   <arg name="node_file" default="Intruder.py"/>
   <arg name="role" default="I"/>
   <arg name="id" default="0"/>
-  <arg name="frame" default="cf3" />
-  <arg name="uri" default="radio://0/84/1M/E7E7E7E703" />
-  <arg name="res_id" default="data_00" />
-  <arg name="role_dict" default="I0_cf0,D0_cf3"/>
+  <arg name="frame" default="cf2" />
+  <arg name="uri" default="radio://0/80/1M/E7E7E7E702" />
+  <arg name="res_id" default="data_10" />
+  <arg name="role_dict" default="I0_cf2,D0_cf3"/>
   
-  <arg name="r" default="0.5"/>
-  <arg name="ni" default="3"  />
-  <arg name="nd" default="2"  />  
-  <arg name="vmax" default="0.5" />
+  <arg name="r" default="0.25"/>
+  <arg name="ni" default="1"  />
+  <arg name="nd" default="1"  />  
+  <arg name="vmax" default="0.2" />
   <arg name="Rt" default="2." />
-  <arg name="Ro" default="1." />
-  <arg name="x" default="0.0"  />
-  <arg name="y" default="0.0"  />
-  <arg name="z" default="0.5"  />
+  <arg name="Ro" default="2.5" />
+  <arg name="x" default="1."  />
+  <arg name="y" default="1.0"  />
+  <arg name="z" default="0.4"  />
 
   <!-- launch files and nodes -->
   <group ns='$(arg frame)'>

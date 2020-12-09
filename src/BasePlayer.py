@@ -61,7 +61,7 @@ class PlayerNode(object):
 		self.Rt = Rteam
 		self.Ro = Roppo
 
-		self.status = ['standby', '']
+		self.status = ['prepare', '']
 		self.x0 = x
 		self.vmax = vmax
 		self.state = PlayerState(self.t, self.x0, self.altitude)
@@ -164,6 +164,10 @@ class PlayerNode(object):
 		cmdX_msg = self.get_cmdX_msg(self.state.x, 0.2)
 		self.cmdX_pubs.publish(cmdX_msg)
 
+	# def prepare(self):
+	# 	cmdX_msg = self.get_cmdX_msg(self.x0, self.altitude)
+	# 	self.cmdX_pubs.publish(cmdX_msg)
+
 	def win(self):
 		pass
 
@@ -236,6 +240,8 @@ class PlayerNode(object):
 	def iteration(self, event):
 
 		if not rospy.is_shutdown():
+			# if str(self) == 'I2':
+			# 	print(str(self), self.x0)
 
 			if self.status[0] == 'play':
 				self.play()
@@ -252,7 +258,8 @@ class PlayerNode(object):
 				self.deploy()
 
 			if self.status[0] == 'land':
-				self.land()
+				self.status = ['prepare', '']
+				self.land_client()
 
 	# ============ class functions ============
 	def __repr__(self):
