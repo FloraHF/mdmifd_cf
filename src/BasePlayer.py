@@ -230,7 +230,7 @@ class PlayerNode(object):
 	def get_statesub_callback(self, p, pset, R):
 		def sub_callback(msg):
 			state = mcap_msg_to_player_state(msg)
-			if dist(state.x, self.state.x) <= R and state.z > 0.3:
+			if dist(state.x, self.state.x) <= R and state.z > 0.23:
 				pset.update({p: state})
 			else:
 				pset.pop(p, '')

@@ -58,7 +58,7 @@
   <arg name="nd" value="2"/>
   <arg name="vi" value=".15"/>
   <arg name="vd" value=".2"/>
-  <arg name="Rt_d" value="2.5"/>
+  <arg name="Rt_d" value="5."/>
   <arg name="Ro_d" value="1.5"/>
   <arg name="Rt_i" value="5."/>
   <arg name="Ro_i" value="5."/>  
