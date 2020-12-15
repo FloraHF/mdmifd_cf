@@ -13,6 +13,7 @@ def get_time():
 # ===== geometry calculations
 def norm(x):
 	return np.sqrt(sum([xx**2 for xx in x]))
+	
 def dist(x, y):
 	return norm(x-y)
 

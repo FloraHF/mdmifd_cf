@@ -176,10 +176,15 @@ class PlayerNode(object):
 		orca_self = Agent(self.state.x, self.state.v, .1, u_pref)
 		orca_other = []
 
+		# u = u_pref
+
 		for other, state in self.state_team_neigh.items():
 			orca_other.append(Agent(state.x, state.v, .1, (0, 0)))
 
-		u, _ = orca(orca_self, orca_other, 2., 1e-2)
+		if orca_other:
+			u, _ = orca(orca_self, orca_other, 2., 1e-2)
+		else:
+			u = u_pref
 		
 		# velocity
 		cmdV_msg = Twist()

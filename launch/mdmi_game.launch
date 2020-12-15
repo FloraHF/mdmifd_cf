@@ -12,7 +12,7 @@
   <!-- arguments -->
   <arg name="server" default="192.168.2.230" />
   <arg name="port" default="3883" />
-  <arg name="res_id" default="data_20" />
+  <arg name="res_id" default="data_11" />
 
   <!-- defenders -->
   <arg name="uri_D0" default="radio://0/84/1M/E7E7E7E703" />
@@ -38,18 +38,18 @@
   <arg name="frame_I1" default="cf1" />
   <arg name="zi_1" default=".4"/>
   <arg name="xi_1" value="0.5"/>
-  <arg name="yi_1" value="1.2"/>
+  <arg name="yi_1" value="1.3"/>
 
   <arg name="uri_I2" default="radio://0/80/1M/E7E7E7E702" />
   <arg name="frame_I2" default="cf2" />
   <arg name="zi_2" default=".4"/>  
   <arg name="xi_2" value="1."/>
-  <arg name="yi_2" value=".9"/>
+  <arg name="yi_2" value="1.4"/>
 
   <arg name="uri_I3" default="radio://0/88/1M/E7E7E7E705" />
   <arg name="frame_I3" default="cf5" />
   <arg name="zi_3" default=".4"/>  
-  <arg name="xi_3" value="1.8"/>
+  <arg name="xi_3" value="1.5"/>
   <arg name="yi_3" value="1."/>  
 
   <!-- game settings-->
@@ -59,7 +59,7 @@
   <arg name="vi" value=".15"/>
   <arg name="vd" value=".2"/>
   <arg name="Rt_d" value="5."/>
-  <arg name="Ro_d" value="1.5"/>
+  <arg name="Ro_d" value="1."/>
   <arg name="Rt_i" value="5."/>
   <arg name="Ro_i" value="5."/>  
 
