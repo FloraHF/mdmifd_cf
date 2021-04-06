@@ -183,6 +183,8 @@ class PlayerNode(object):
 
 		if orca_other:
 			u, _ = orca(orca_self, orca_other, 2., 1e-2)
+			if norm(u)>0:
+				u = self.vmax*u/norm(u)				
 		else:
 			u = u_pref
 		

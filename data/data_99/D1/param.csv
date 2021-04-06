@@ -1,0 +1,17 @@
+param,value
+target:type,circle_3.90
+target:x0,-2.20
+target:y0,-4.00
+target:R,3.90
+nd,2
+ni,4
+id,D1
+r,0.25
+vmax,0.20
+x0,0.80
+y0,-0.70
+z,0.60
+Rteam,5.00
+Roppo,2.00
+cf_dict,D0_cf3!D1_cf4!I0_cf0!I1_cf1!I2_cf2!I3_cf5
+iselect_mode,value
